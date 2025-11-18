@@ -52,3 +52,5 @@ L’application utilise **react-native-paper** pour une interface moderne et agr
 ```bash
 git clone <URL_DU_REPO>
 cd HangerGames
+npm install
+npm run start
