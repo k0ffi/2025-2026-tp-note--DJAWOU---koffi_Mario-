@@ -1,8 +1,5 @@
-
-
-
-import { Image, View } from "react-native";
-import { Text } from 'react-native-paper';
+import { Image, View, StyleSheet } from "react-native";
+import { Text } from "react-native-paper";
 import { Employe } from "../../../types";
 
 export type JobDetailsProps = {
@@ -15,28 +12,71 @@ const JobDetails = ({ route }: JobDetailsProps) => {
     const job = route.params.job;
 
     return (
-        <View style={{ padding: 10 }}>
+        <View style={styles.container}>
             <Image
                 source={{
                     uri:
                         job.entreprisePhoto ||
                         "https://freesvg.org/img/Image-Not-Found.png",
                 }}
-                style={{ width: 100, height: 100, marginBottom: 10 }}
+                style={styles.image}
             />
-            <Text variant="displaySmall">{job.poste}</Text>
-            <Text variant="headlineSmall">{job.entreprise}</Text>
-            <Text variant="headlineSmall">
+            <Text style={styles.title}>{job.poste}</Text>
+            <Text style={styles.subtitle}>{job.entreprise}</Text>
+            <Text style={styles.address}>
                 {job.rue} {job.numeroRue}, {job.codePostal} {job.ville}
             </Text>
-            <Text variant="bodyLarge" style={{ marginVertical: 10 }}>
-                {job.description}
-            </Text>
-            <Text variant="headlineSmall">Téléphone: {job.telephone}</Text>
-            <Text variant="headlineSmall">Salaire annuel: ${job.salaireAnnuel}</Text>
-            <Text variant="bodySmall">Date: {job.date}</Text>
+            <Text style={styles.description}>{job.description}</Text>
+            <Text style={styles.info}>Téléphone: {job.telephone}</Text>
+            <Text style={styles.info}>Salaire annuel: ${job.salaireAnnuel}</Text>
+            <Text style={styles.date}>Date: {job.date}</Text>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 16,
+        backgroundColor: "#fefae0",
+        flex: 1,
+    },
+    image: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        marginBottom: 16,
+        alignSelf: "center",
+    },
+    title: {
+        fontWeight: "700",
+        fontSize: 24,
+        marginBottom: 4,
+    },
+    subtitle: {
+        fontWeight: "600",
+        fontSize: 18,
+        marginBottom: 4,
+    },
+    address: {
+        fontWeight: "500",
+        fontSize: 16,
+        marginBottom: 12,
+    },
+    description: {
+        fontSize: 16,
+        marginVertical: 12,
+        lineHeight: 22,
+    },
+    info: {
+        fontWeight: "600",
+        fontSize: 16,
+        marginBottom: 4,
+    },
+    date: {
+        fontSize: 14,
+        color: "#555",
+        marginTop: 8,
+    },
+});
 
 export default JobDetails;

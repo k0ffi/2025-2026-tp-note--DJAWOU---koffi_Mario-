@@ -14,7 +14,7 @@ const Stack = createStackNavigator({
     screens: {
         Liste: Jobs,
         JobDetails: JobDetails,
-        Favorites: FavoriteJobs,
+        FavoriteJobs: FavoriteJobs,
     },
 });
 

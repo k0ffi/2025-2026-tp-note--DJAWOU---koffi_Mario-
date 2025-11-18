@@ -1,6 +1,5 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, TextInput } from "react-native";
 import jobsData from "../../helpers/jobs.json" with { type: "json" };
-
 import { useEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Employe } from "../../../types";
@@ -15,6 +14,7 @@ const Jobs = () => {
         useNavigation<NavigationProp<RootStackParamList, "JobDetails">>();
 
     const [jobs, setJobs] = useState<Employe[]>([]);
+    const [searchText, setSearchText] = useState("");
 
     // Sélecteur pour les favoris
     const favouriteJobs = useSelector(
@@ -29,27 +29,49 @@ const Jobs = () => {
         }));
     };
 
-    // Fonction pour ajouter des jobs au state
+    // Ajouter des jobs au state
     const getJobs = (jobsPage: Employe[]) => {
         setJobs((prevJobs) => [...prevJobs, ...cleanJobs(jobsPage)]);
     };
 
-    // Charger les jobs au montage
     useEffect(() => {
         getJobs(jobsData);
     }, []);
 
+    // Filtrer les jobs selon la recherche
+    const filteredJobs = jobs.filter((job) =>
+        job.poste.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
         <ScrollView style={styles.body}>
             <View style={{ flex: 1, alignItems: "center" }}>
+                {/* Bouton favoris */}
                 <Button
                     mode="elevated"
-                    style={{ maxWidth: 400, margin: 20, width: 350 }}
+                    style={{ maxWidth: 400, margin: 10, width: 350 }}
                     onPressOut={() => navigation.navigate("FavoriteJobs")}
                 >
-                    Favoris ({favouriteJobs.length})
+                    Favoris : {favouriteJobs.length}
                 </Button>
-                <JobList jobs={jobs} />
+
+                {/* Barre de recherche */}
+                <TextInput
+                    placeholder="Rechercher un poste..."
+                    value={searchText}
+                    onChangeText={setSearchText}
+                    style={styles.searchInput}
+                />
+
+                {/* Nombre d'annonces */}
+                <View style={{ alignSelf: "flex-start", marginLeft: 16, marginTop: 8 }}>
+                    <Button disabled>
+                        Nombre d'annonces : {filteredJobs.length}
+                    </Button>
+                </View>
+
+                {/* Liste des jobs */}
+                <JobList jobs={filteredJobs} />
             </View>
         </ScrollView>
     );
@@ -57,8 +79,18 @@ const Jobs = () => {
 
 const styles = StyleSheet.create({
     body: {
-        backgroundColor: "gray",
+        backgroundColor: "#d9d9d9",
         flex: 1,
+    },
+    searchInput: {
+        height: 40,
+        width: 350,
+        borderColor: "#ccc",
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        marginBottom: 10,
+        backgroundColor: "white",
     },
 });
 
