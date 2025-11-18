@@ -10,6 +10,7 @@ import { JobDetails } from "./src/components/templates/jobDetails"; // détails 
 import { store } from "./stores/store";
 import FavoriteJobs from "./src/components/pages/favorites"; // favoris jobs
 
+// @ts-ignore
 const Stack = createStackNavigator({
     screens: {
         Liste: Jobs,
@@ -19,6 +20,7 @@ const Stack = createStackNavigator({
 });
 
 const Navigation = createStaticNavigation(Stack);
+// @ts-ignore
 export type RootStackParamList = StaticParamList<typeof Stack>;
 
 export default function App() {

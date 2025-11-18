@@ -40,13 +40,12 @@ const Jobs = () => {
 
     // Filtrer les jobs selon la recherche
     const filteredJobs = jobs.filter((job) =>
-        job.poste.toLowerCase().includes(searchText.toLowerCase())
+        job.ville.toLowerCase().includes(searchText.toLowerCase())
     );
 
     return (
         <ScrollView style={styles.body}>
-            <View style={{ flex: 1, alignItems: "center" }}>
-                {/* Bouton favoris */}
+            <View style={{ flex: 1, alignItems: "center" ,color: "black"}}>
                 <Button
                     mode="elevated"
                     style={{ maxWidth: 400, margin: 10, width: 350 }}
@@ -54,23 +53,19 @@ const Jobs = () => {
                 >
                     Favoris : {favouriteJobs.length}
                 </Button>
-
-                {/* Barre de recherche */}
                 <TextInput
-                    placeholder="Rechercher un poste..."
+                    placeholder="Rechercher un poste par ville"
                     value={searchText}
                     onChangeText={setSearchText}
                     style={styles.searchInput}
                 />
 
-                {/* Nombre d'annonces */}
                 <View style={{ alignSelf: "flex-start", marginLeft: 16, marginTop: 8 }}>
                     <Button disabled>
                         Nombre d'annonces : {filteredJobs.length}
                     </Button>
                 </View>
 
-                {/* Liste des jobs */}
                 <JobList jobs={filteredJobs} />
             </View>
         </ScrollView>
@@ -85,7 +80,7 @@ const styles = StyleSheet.create({
     searchInput: {
         height: 40,
         width: 350,
-        borderColor: "#ccc",
+        borderColor: "#99582a",
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,

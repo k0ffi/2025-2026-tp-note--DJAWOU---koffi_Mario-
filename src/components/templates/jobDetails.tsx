@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View, Image } from "react-native";
-import { Text, Button, Card, Divider } from "react-native-paper";
+import { Text, Button, Card } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../stores/store";
 import { push, remove } from "../../../stores/favoriteSlice";
@@ -9,9 +9,11 @@ import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../../App";
 
 type JobDetailsProps = {
+    // @ts-ignore
     route: RouteProp<RootStackParamList, "JobDetails">;
 };
 
+// @ts-ignore
 export const JobDetails = ({ route }: JobDetailsProps) => {
     const job: Employe = route.params.job;
     const dispatch = useDispatch();
@@ -21,10 +23,7 @@ export const JobDetails = ({ route }: JobDetailsProps) => {
 
     return (
         <ScrollView style={styles.container}>
-            {/* Titre */}
             <Text style={styles.title}>{job.poste}</Text>
-
-            {/* Informations */}
             <Card style={styles.card}>
                 <Card.Title title="Informations" />
                 <Card.Content>
@@ -34,8 +33,6 @@ export const JobDetails = ({ route }: JobDetailsProps) => {
                     <Text>Date de l'annonce : {job.date}</Text>
                 </Card.Content>
             </Card>
-
-            {/* Entreprise */}
             <Card style={styles.card}>
                 <Card.Title title="Entreprise" />
                 <Card.Content style={styles.companyContainer}>
@@ -52,8 +49,6 @@ export const JobDetails = ({ route }: JobDetailsProps) => {
                     </View>
                 </Card.Content>
             </Card>
-
-            {/* Description */}
             <Card style={styles.card}>
                 <Card.Title title="Description" />
                 <Card.Content>
@@ -61,7 +56,6 @@ export const JobDetails = ({ route }: JobDetailsProps) => {
                 </Card.Content>
             </Card>
 
-            {/* Bouton favoris */}
             <Button
                 mode={isInFavourite ? "outlined" : "contained"}
                 onPress={() => {

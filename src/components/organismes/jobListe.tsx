@@ -89,11 +89,11 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     profileImage: {
-        width: 100,          // largeur du cercle
-        height: 100,         // hauteur du cercle
-        borderRadius: 50,    // pour rendre l'image circulaire
+        width: 100,
+        height: 100,
+        borderRadius: 50,
         borderWidth: 2,
-        borderColor: "#ccc",
+        borderColor: "#99582a",
     },
 });
 
