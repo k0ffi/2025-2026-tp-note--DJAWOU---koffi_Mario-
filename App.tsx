@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+    StaticParamList,
+    createStaticNavigation,
+} from "@react-navigation/native";
+
+import { Provider as StoreProvider } from "react-redux";
+import JobsList from "./src/components/organismes/jobListe"; // liste des jobs
+import { createStackNavigator } from "@react-navigation/stack";
+import { JobDetails } from "./src/components/templates/jobDetails"; // détails du job
+import { store } from "./stores/store";
+import FavoriteJobs from "./src/components/pages/favorites"; // favoris jobs
+
+const Stack = createStackNavigator({
+    screens: {
+        Liste: JobsList,
+        JobDetails: JobDetails,
+        Favorites: FavoriteJobs,
+    },
+});
+
+const Navigation = createStaticNavigation(Stack);
+export type RootStackParamList = StaticParamList<typeof Stack>;
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+        <StoreProvider store={store}>
+            <Navigation />
+        </StoreProvider>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
