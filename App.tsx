@@ -4,7 +4,7 @@ import {
 } from "@react-navigation/native";
 
 import { Provider as StoreProvider } from "react-redux";
-import JobsList from "./src/components/organismes/jobListe"; // liste des jobs
+import Jobs from "./src/components/pages/jobs"; // <-- ton screen complet
 import { createStackNavigator } from "@react-navigation/stack";
 import { JobDetails } from "./src/components/templates/jobDetails"; // détails du job
 import { store } from "./stores/store";
@@ -12,7 +12,7 @@ import FavoriteJobs from "./src/components/pages/favorites"; // favoris jobs
 
 const Stack = createStackNavigator({
     screens: {
-        Liste: JobsList,
+        Liste: Jobs,
         JobDetails: JobDetails,
         Favorites: FavoriteJobs,
     },

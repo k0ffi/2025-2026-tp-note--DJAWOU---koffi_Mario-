@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import jobs1 from "../../helpers/Jobs.json" with { type: "json" };
+import jobsData from "../../helpers/jobs.json" with { type: "json" };
 
 import { useEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -16,10 +16,12 @@ const Jobs = () => {
 
     const [jobs, setJobs] = useState<Employe[]>([]);
 
-    useEffect(() => {
-        setJobs((prev) => [...prev, ...cleanJobs(jobs1)]);
-    }, []);
+    // Sélecteur pour les favoris
+    const favouriteJobs = useSelector(
+        (state: RootState) => state.favourite.value
+    );
 
+    // Nettoyage des jobs (champ nullable)
     const cleanJobs = (jobs: any[]): Employe[] => {
         return jobs.map((job) => ({
             ...job,
@@ -27,12 +29,15 @@ const Jobs = () => {
         }));
     };
 
+    // Fonction pour ajouter des jobs au state
     const getJobs = (jobsPage: Employe[]) => {
-        setJobs((prevJobs) => [...prevJobs, ...jobsPage]);
+        setJobs((prevJobs) => [...prevJobs, ...cleanJobs(jobsPage)]);
     };
-    const favouriteJobs = useSelector(
-        (state: RootState) => state.favourite.value
-    );
+
+    // Charger les jobs au montage
+    useEffect(() => {
+        getJobs(jobsData);
+    }, []);
 
     return (
         <ScrollView style={styles.body}>
@@ -40,7 +45,7 @@ const Jobs = () => {
                 <Button
                     mode="elevated"
                     style={{ maxWidth: 400, margin: 20, width: 350 }}
-                    onPressOut={() => navigation.navigate("Favorites")}
+                    onPressOut={() => navigation.navigate("FavoriteJobs")}
                 >
                     Favoris ({favouriteJobs.length})
                 </Button>
@@ -53,6 +58,7 @@ const Jobs = () => {
 const styles = StyleSheet.create({
     body: {
         backgroundColor: "gray",
+        flex: 1,
     },
 });
 

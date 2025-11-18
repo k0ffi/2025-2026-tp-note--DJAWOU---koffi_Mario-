@@ -4,7 +4,7 @@ export type Employe = {
     poste: string;
     entreprise: string;
     ville: string;
-    codePostal: string;
+    codePostal: string |null;
     rue: string;
     numeroRue: string;
     entreprisePhoto: string;
