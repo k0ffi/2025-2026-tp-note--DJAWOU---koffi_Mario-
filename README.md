@@ -30,7 +30,7 @@ L’application utilise **react-native-paper** pour une interface moderne et agr
    - Affichage du nombre de favoris sur le bouton dédié.  
 
 4. **Recherche**  
-   - Barre de recherche pour filtrer les jobs par poste ou entreprise.  
+   - Barre de recherche pour filtrer les jobs par ville.  
 
 ---
 
